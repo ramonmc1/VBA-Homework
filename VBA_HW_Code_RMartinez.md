@@ -42,13 +42,13 @@ For i = 2 To LastRow
     FinalStockVol = Cells(i, 7)
     TicketName = Cells(i + 1, 1)
     PriceChange = FinPrice - BegPrice
-        
+      'One of the sheets caused a division by zero (There were no values associated with a ticker). Added the following to fix the issue.  
         If BegPrice <> 0 Then
         PercentChange = PriceChange / BegPrice
         Else
         PercentChange = 0
         End If
-    
+    'I used the following from one of the class sessions. I had to goggle the use of "&" in the range
     TotStockVol = Application.WorksheetFunction.Sum(Range("G" & Lasti & ":G" & i))
     Cells(TicketCount, 9).Value = TicketName
     Cells(TicketCount - 1, 10).Value = PriceChange
@@ -66,6 +66,7 @@ For i = 2 To LastRow
     End If
 Next i
 
+'BONUS
 Dim LastRow2 As Long
 Dim GreInc As Double
 Dim GreDec As Double
@@ -86,6 +87,7 @@ GreInc = Cells(2, 10).Value
 GreDec = Cells(2, 11).Value
 GreTotVol = Cells(2, 12).Value
 
+'Formulas to calculate the max and min values below. I tried using the application MAX/MIN function and I could obtain the highest/lowest values but I could not pull the corresponding ticker value associated with the max/min value.
 For j = 2 To LastRow2
 If Cells(j + 1, 10) > GreInc Then
 GreInc = Cells(j + 1, 10).Value
